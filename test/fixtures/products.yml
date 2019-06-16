@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ean: MyString
+  points: 1
+  available_in_app: false
+
+two:
+  ean: MyString
+  points: 1
+  available_in_app: false
