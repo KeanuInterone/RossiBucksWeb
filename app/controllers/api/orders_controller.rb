@@ -6,12 +6,13 @@ class Api::OrdersController < ApplicationController
   def index
     @orders = Order.all
 
+
     render json: @orders
   end
 
   # GET /orders/1
   def show
-    render json: @order
+    render json: @order.jsonWithProducts
   end
 
   # POST /orders
@@ -25,9 +26,11 @@ class Api::OrdersController < ApplicationController
 
   	# create product list from EAN's
   	products = []
+    points = 0
   	params[:eans].each do |ean|
   		product = Product.where(ean: ean).first
   		if product 
+        points += product.points
   			products.push(product)
   		end
     end
@@ -45,11 +48,17 @@ class Api::OrdersController < ApplicationController
     	return 
     end
 
+    # set the users points
+    @order.user.points += points
+    @order.user.save
+
     # add the products to the order and return
     products.each do |product| 
     	@order.products << product
     end
-    render json: {"order" => @order, "products" => @order.products}, status: :created, location: @order
+
+    # return response
+    render json: {"order" => @order.jsonWithProducts, "points_awarded" => points}, status: :created, location: @order
   
   end
 
