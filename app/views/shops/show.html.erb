@@ -1,19 +1,86 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @shop.name %>
-</p>
+<div class="container">
+	<div class="row">
+		<div class="col-9">
+			<h1><%= @shop.name %></h1>
+		</div>
+		<div class="col-3">
+			<ul class="list-group">
+				<li class="list-group-item">Account #: <%= @shop.account_number %></li>
+				<li class="list-group-item">Location: <%= @shop.location %></li>
+				<li class="list-group-item">Shop Rep: <%= link_to @shop.reps.first.first_name + ' ' + @shop.reps.first.last_name, @shop.reps.first %></li>
+			</ul>
+		</div>
+	</div>
+</div>
 
-<p>
-  <strong>Account number:</strong>
-  <%= @shop.account_number %>
-</p>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<ul class="list-group list-group-horizontal " style="margin:20px auto;">
+				<li class="list-group-item">
+					<h3 class="text-center top-dash">Total Shop Points</h3>
+					<h1 class="text-center"><%= @shop.get_points %></h1>
+				</li>
+				<li class="list-group-item">
+					<h3 class="text-center top-dash">Total Items Sold</h3>
+					<h1 class="text-center"><%= @shop.sold_products.count %></h1>
+				</li>
+				<li class="list-group-item">
+					<h3 class="text-center top-dash">Top Seller</h3>
+					
+						<% top_product = @shop.get_top_product %>
 
-<p>
-  <strong>Location:</strong>
-  <%= @shop.location %>
-</p>
+						<% if top_product %>
+						<h1 class="text-center"> </h1>
+							<h4 class="text-center">
+								<strong>
+									<%= @shop.get_top_product["product"].name %>
+								</strong> 
+								<br ><%= @shop.get_top_product["count"] %> have been sold
+							</h4>
+						<% else %>
+
+							<p>No products have been sold</p>
+
+						<% end %>
+						
+				</li>
+				<li class="list-group-item">
+					<h3 class="text-center top-dash">Top Employee</h3>
+					<h1 class="text-center"><%= @shop.employees.first.first_name %></h1>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+
+
+	<table class="table table-striped">
+		<thead>
+			<th>Product Name</th>
+			<th>EAN</th>
+			<th>Product Points</th>
+
+		</thead>
+		<% @shop.sold_products.each do |sold_product| %>
+			<tr>
+				<td><%= sold_product.name %></td>
+				<td><%= sold_product.ean %></td>
+				<td><%= sold_product.points %></td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>
+
+
+
 
 <%= link_to 'Edit', edit_shop_path(@shop) %> |
 <%= link_to 'Back', shops_path %>

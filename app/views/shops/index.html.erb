@@ -10,9 +10,10 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Account number</th>
-      <th>Location</th>
-      <th>Total Shop points</th>
+      <th class="text-center">Account number</th>
+      <th class="text-center">Location</th>
+      <th class="text-center">Total Shop points</th>
+      <th class="text-center">Shop Rep</th>
       
     </tr>
   </thead>
@@ -21,9 +22,10 @@
     <% @shops.each do |shop| %>
       <tr>
         <td><%= link_to shop.name, shop %></td>
-        <td><%= shop.account_number %></td>
-        <td><%= shop.location %></td>
-        <td><%= shop.get_points %></td>
+        <td class="text-center"><%= shop.account_number %></td>
+        <td class="text-center"><%= shop.location %></td>
+        <td class="text-center"><%= shop.get_points %></td>
+        <td class="text-center"><%= link_to shop.reps.first.first_name + ' ' + shop.reps.first.last_name, shop.reps.first %></td>
         
         <!-- <td><%#= link_to 'Edit', edit_shop_path(shop) %></td> -->
         <!-- <td><%#= link_to 'Destroy', shop, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
