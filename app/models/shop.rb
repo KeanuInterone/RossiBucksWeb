@@ -22,9 +22,7 @@ class Shop < ApplicationRecord
 				productCountMap[product.id] = productCount + 1
 			else 
 				productCountMap[product.id] = 1
-
 			end
-
 		end
 
 		maxCount = 0
@@ -35,7 +33,6 @@ class Shop < ApplicationRecord
 				maxCount = value
 				maxProductID = key
 			end
-
 		end
 
 		if maxProductID.nil? 
@@ -43,7 +40,23 @@ class Shop < ApplicationRecord
 		else 
 			return {"product" => Product.find(maxProductID), "count" => maxCount}
 		end
-
 	end
 
+
+
+
+	def get_top_employee
+
+		sql = "SELECT u.*
+			   FROM users u 
+			   JOIN shop_employees se ON u.id = se.user_id
+			   WHERE u.points = (SELECT MAX(u.points)
+             					 FROM users u  
+             					 JOIN shop_employees se ON u.id = se.user_id   
+             					 WHERE se.shop_id = #{self.id})"
+
+      results = ActiveRecord::Base.connection.execute(sql)
+      return results.to_json
+
+	end
 end
