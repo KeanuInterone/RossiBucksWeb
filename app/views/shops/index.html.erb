@@ -25,8 +25,7 @@
         <td class="text-center"><%= shop.account_number %></td>
         <td class="text-center"><%= shop.location %></td>
         <td class="text-center"><%= shop.get_points %></td>
-        <td class="text-center"><%= link_to shop.reps.first.first_name + ' ' + shop.reps.first.last_name, shop.reps.first %></td>
-        
+        <td class="text-center"><%= get_rep_name_link(shop) %></td>
         <!-- <td><%#= link_to 'Edit', edit_shop_path(shop) %></td> -->
         <!-- <td><%#= link_to 'Destroy', shop, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>

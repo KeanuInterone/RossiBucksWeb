@@ -9,11 +9,8 @@
 			<ul class="list-group">
 				<li class="list-group-item">Account #: <%= @shop.account_number %></li>
 				<li class="list-group-item">Location: <%= @shop.location %></li>
-				<% if @shop.reps.count != 0 %>
-					<li class="list-group-item">Shop Rep: <%= link_to @shop.reps.first.first_name + ' ' + @shop.reps.first.last_name, @shop.reps.first %></li>
-				<% elsif %>
-					<li class="list-group-item">Shop Rep: No rep specified</li>
-				<% end %>
+				<li class="list-group-item">Shop Rep: <%= get_rep_name_link(@shop) %></li>
+
 			</ul>
 		</div>
 	</div>
@@ -52,7 +49,7 @@
 						
 				</li>
 				<li class="list-group-item">
-					<h3 class="text-center top-dash">Top Employee</h3>
+					<h3 class="text-center top-dash">Top Employee NI</h3>
 					<% if @shop.reps.count != 0 %>
 						<h1 class="text-center"><%= @shop.employees.first.first_name %></h1>
 					<% elsif %>
