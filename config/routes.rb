@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  #devise_for :users
   resources :orders
   resources :products
   resources :brands
   resources :shops
+  
   	# sessions
 	get 'login' => 'sessions#new', as: 'login'
 	post 'sessions/create' => 'sessions#create', as: 'create_session'
